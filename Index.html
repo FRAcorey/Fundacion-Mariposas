@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariposa Azul</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="video-background">
+        <video id="videoFondo" autoplay muted  playsinline>
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="header">
+        <h1> Mariposa Azul</h1>
+        
+
+        <div class="menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#objetivo">Objetivo</a>
+            <a href="#noticias">Noticias</a>
+            <a href="#articulos">Artículos</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+
+        <button class="btn-shine" id="temaBtn">
+            <span>🌙</span>
+        </button>
+    </div>
+
+    <div class="contenido">
+        <h1>Bienvenido a Mariposa Azul.</h1> 
+        <br>
+        <br>
+
+        <h3></h3>Somos una asociación civil sin fines de lucro, fundado en el año 2018 .</h3> 
+        <br><br>
+           <h3>Para niños , jóvenes y adultos con discapacidad.</h3>
+           <br><br>        
+    </div>
+
+    <div class="contenido">
+        <h2>Nuestro objetivo</h2>
+         
+              <div class="card">
+  <div class="loader">
+    <p>CREAMOS UN ESPACIO DE  </p>
+    <div class="words">
+      <span class="word">PERTENENCIA</span>
+      <span class="word">CONTENCIÓN</span>
+      <span class="word">APOYO</span>
+      <span class="word">APRENDIZAJE</span>
+      <span class="word">DIVERSIÓN</span>
+    </div>
+  </div>
+</div>
+
+        
+    </div>
+   
+
+
+
+  
+    <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2026 Mariposa Azul. Todos los derechos reservados.</p>
+        
+        <div class="footer-links">
+            <a href="#privacidad">Privacidad</a>
+            <a href="#terminos">Términos</a>
+        </div>
+        
+        <div class="footer-socials">
+           <a href="https://www.instagram.com/asociacionmariposas/" target="_blank">Instagram</a>
+           <a href="" target="_blank">FACEBOOK</a>
+        </div>
+    </div>
+</footer>
+
+
+
+    <script>
+        // lógica  de reproducción aleatoria
+        const videos = [
+            "video1.mp4",
+            "video2.mp4",
+            "video3.mp4",
+            
+        ];
+
+        let actual = 0;
+        const video = document.getElementById("videoFondo");
+
+        video.addEventListener("ended", () => {
+            actual = (actual + 1) % videos.length;
+            video.src = videos[actual];
+            video.play();
+        });
+
+        // Modo oscuro
+        const btn = document.getElementById("temaBtn");
+        btn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                btn.innerHTML = "<span>☀️</span>";
+            } else {
+                btn.innerHTML = "<span>🌙</span>";
+            }
+        });
+    </script>
+</body>
+</html>
