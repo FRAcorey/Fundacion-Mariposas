@@ -10,7 +10,7 @@
 
     <div class="video-background">
         <video id="videoFondo" autoplay muted  playsinline>
-            <source src="video1.mp4" type="video/mp4">
+            <source src="Visuales/video1.mp4" type="video/mp4">
         </video>
     </div>
 
@@ -84,33 +84,34 @@
 
 
     <script>
-        // lógica  de reproducción aleatoria
-        const videos = [
-            "video1.mp4",
-            "video2.mp4",
-            "video3.mp4",
-            
-        ];
+       // Lógica de reproducción de videos
+const videos = [
+    "Visuales/video1.mp4",
+    "Visuales/video2.mp4",
+    "Visuales/video3.mp4"
+];
 
-        let actual = 0;
-        const video = document.getElementById("videoFondo");
+let actual = 0;
+const video = document.getElementById("videoFondo");
 
-        video.addEventListener("ended", () => {
-            actual = (actual + 1) % videos.length;
-            video.src = videos[actual];
-            video.play();
-        });
+video.addEventListener("ended", () => {
+    actual = (actual + 1) % videos.length;
+    video.src = videos[actual];
+    video.play();
+});
 
-        // Modo oscuro
-        const btn = document.getElementById("temaBtn");
-        btn.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-            if (document.body.classList.contains("dark-mode")) {
-                btn.innerHTML = "<span>☀️</span>";
-            } else {
-                btn.innerHTML = "<span>🌙</span>";
-            }
-        });
+// Modo oscuro
+const btn = document.getElementById("temaBtn");
+
+btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        btn.innerHTML = "<span>☀️</span>";
+    } else {
+        btn.innerHTML = "<span>🌙</span>";
+    }
+});
     </script>
 </body>
 </html>
