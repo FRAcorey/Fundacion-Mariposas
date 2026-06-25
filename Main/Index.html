@@ -3,19 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundacion Mariposa</title>
+    <title>Mariposa Azul</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>Fundación Mariposa</h1>
-        <p>Pagina en proceso todavia</p>
-        <p>Nos falta la entrevista asi que agua al pollo o no se</p>
+
+
+    <div class="header">
+        <h1> Mariposa Azul</h1>
+        
+
+        <div class="menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#objetivo">Objetivo</a>
+            <a href="#noticias">Noticias</a>
+            <a href="#articulos">Artículos</a>
+            <a href="#contacto">Contacto</a>
+            <a href="nosotros.html">Sobre Nosotros</a> 
+        </div>
+
+        <button class="btn-shine" id="temaBtn">
+            <span>🌙</span>
+        </button>
     </div>
 
-    <div class="Programador">
-        <p>Agrege el css no se para que pero bueno.</p>
-        <p>me cago en git de mierda</p>
+    <div class="contenido">
+        <h1>Bienvenido a Mariposa Azul.</h1> 
+        <br>
+        <br>
+
+        <h3></h3>Somos una asociación civil sin fines de lucro, fundado en el año 2018 .</h3> 
+        <br><br>
+           <h3>Para niños , jóvenes y adultos con discapacidad.</h3>
+           <br><br>        
     </div>
+
+    <div class="contenido">
+        <h2>Nuestro objetivo</h2>
+         
+              <div class="card">
+  <div class="loader">
+    <p>CREAMOS UN ESPACIO DE  </p>
+    <div class="words">
+      <span class="word">PERTENENCIA</span>
+      <span class="word">CONTENCIÓN</span>
+      <span class="word">APOYO</span>
+      <span class="word">APRENDIZAJE</span>
+      <span class="word">DIVERSIÓN</span>
+    </div>
+  </div>
+</div>
+
+        
+    </div>
+   
+
+
+
+  
+    <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2026 Mariposa Azul. Todos los derechos reservados.</p>
+        
+        <div class="footer-links">
+            <a href="#privacidad">Privacidad</a>
+            <a href="#terminos">Términos</a>
+        </div>
+        
+        <div class="footer-socials">
+           <a href="https://www.instagram.com/asociacionmariposas/" target="_blank">Instagram</a>
+           <a href="" target="_blank">FACEBOOK</a>
+        </div>
+    </div>
+</footer>
+
+
+
+    <script>
+
+// Modo oscuro
+const btn = document.getElementById("temaBtn");
+
+btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        btn.innerHTML = "<span>☀️</span>";
+    } else {
+        btn.innerHTML = "<span>🌙</span>";
+    }
+});
+    </script>
 </body>
 </html>
