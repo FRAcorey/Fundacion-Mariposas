@@ -20,6 +20,48 @@
   .navbar-brand{color:var(--azul-900)!important;}
   .nav-link{color:var(--azul-700)!important; font-weight:600;}
   .nav-link.active, .nav-link:hover{color:var(--azul-500)!important;}
+  .nav-logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+    padding: 0 20px;
+
+    z-index: 1000;
+}
+/* Logo */
+.logo {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* Menú */
+.menu {
+    display: flex;
+    gap: 25px;
+    margin-left: 30px;
+}
+.menu a {
+    text-decoration: none;
+    color: black;
+}
 
   .hero{
     background:linear-gradient(135deg, var(--azul-900) 0%, var(--azul-500) 100%);
@@ -33,6 +75,7 @@
   #btn-outline-light-blue:hover{background:#fff; color:var(--azul-700);}
 
   .seccion-clara{background:var(--azul-100);}
+
 
   /* Filtros de categoría */
   .filtro-btn{
