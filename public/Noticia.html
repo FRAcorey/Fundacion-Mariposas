@@ -125,71 +125,177 @@
 
   <div class="row g-4">
 
-    <!-- FORMULARIO -->
-    <div class="col-lg-6">
-      <div class="panel-form">
+  
+<!-- FORMULARIO -->
+<div class="col-lg-6">
+    <div class="panel-form">
         <h2>📝 Datos de la noticia</h2>
 
         <form id="form-noticia">
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Categoría</label>
-            <select class="form-select" id="campo-categoria">
-              <option value="arte">Arte</option>
-              <option value="musica">Música</option>
-              <option value="deporte">Deporte</option>
-              <option value="evento">Evento</option>
-            </select>
-          </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Fecha</label>
-            <input type="text" class="form-control" id="campo-fecha" placeholder="Ej: 18 de julio, 2026">
-          </div>
+            <div class="mb-3">
+                <label for="campo-categoria" class="form-label fw-semibold">
+                    Categoría
+                </label>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Título</label>
-            <input type="text" class="form-control" id="campo-titulo" placeholder="Ej: Terminamos el mural colectivo del patio">
-          </div>
+                <select class="form-select" id="campo-categoria" name="categoria">
+                    <option value="arte">Arte</option>
+                    <option value="musica">Música</option>
+                    <option value="deporte">Deporte</option>
+                    <option value="evento">Evento</option>
+                </select>
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Párrafo</label>
-            <textarea class="form-control" id="campo-parrafo" rows="4" placeholder="Contá de qué se trató la actividad..."></textarea>
-          </div>
+            <div class="mb-3">
+                <label for="campo-fecha" class="form-label fw-semibold">
+                    Fecha
+                </label>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Imagen (formato WebP)</label>
-            <input type="file" class="form-control" id="campo-imagen" accept=".webp,image/webp">
-            <p class="ayuda-campo mt-1">La imagen debería estar ya convertida a .webp antes de subirla.</p>
-            <p class="aviso-formato" id="aviso-formato">⚠️ Esa imagen no es .webp. Convertila antes de usarla en el sitio final.</p>
-          </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="campo-fecha"
+                    name="fecha"
+                    placeholder="Ej: 18 de julio, 2026"
+                    required
+                >
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Link "Leer más" (opcional)</label>
-            <input type="text" class="form-control" id="campo-link" placeholder="Ej: noticia-mural.html (si no ponés nada, queda #)">
-          </div>
+            <div class="mb-3">
+                <label for="campo-titulo" class="form-label fw-semibold">
+                    Título
+                </label>
 
-          <button type="button" class="btn w-100" style="background:var(--azul-700); color:white;" onclick="generarNoticia()">Generar noticia</button>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="campo-titulo"
+                    name="titulo"
+                    placeholder="Ej: Terminamos el mural colectivo del patio"
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="campo-parrafo" class="form-label fw-semibold">
+                    Párrafo
+                </label>
+
+                <textarea
+                    class="form-control"
+                    id="campo-parrafo"
+                    name="parrafo"
+                    rows="4"
+                    placeholder="Contá de qué se trató la actividad..."
+                    required
+                ></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="campo-imagen" class="form-label fw-semibold">
+                    Imagen (formato WebP)
+                </label>
+
+                <input
+                    type="file"
+                    class="form-control"
+                    id="campo-imagen"
+                    name="imagen"
+                    accept=".webp,image/webp"
+                >
+
+                <p class="ayuda-campo mt-1">
+                    La imagen debería estar ya convertida a .webp antes de subirla.
+                </p>
+
+                <p class="aviso-formato" id="aviso-formato">
+                    ⚠️ Esa imagen no es .webp. Convertila antes de usarla en el sitio final.
+                </p>
+            </div>
+
+            <div class="mb-3">
+                <label for="campo-link" class="form-label fw-semibold">
+                    Link "Leer más" (opcional)
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="campo-link"
+                    name="link"
+                    placeholder="Ej: noticia-mural.html (si no ponés nada, queda #)"
+                >
+            </div>
+
+            <button
+                type="button"
+                class="btn w-100"
+                style="background: var(--azul-700); color: white;"
+                onclick="generarNoticia()"
+            >
+                Generar noticia
+            </button>
+
         </form>
-      </div>
     </div>
+</div>
 
-    <!-- VISTA PREVIA + CODIGO -->
-    <div class="col-lg-6">
-      <div class="panel-previa mb-3">
+
+<!-- VISTA PREVIA -->
+<div class="col-lg-6">
+    <div class="panel-previa mb-3">
+
         <h2>👀 Vista previa</h2>
 
         <div class="card-noticia">
-          <img id="previa-imagen" src="https://placehold.co/400x220/e6e6e6/999999?text=Imagen" alt="Vista previa">
-          <div class="p-3">
-            <span class="badge-cat badge-arte" id="previa-badge">Arte</span>
-            <p class="fecha-noticia mt-2 mb-1" id="previa-fecha">18 de julio, 2026</p>
-            <h5 id="previa-titulo">Título de la noticia</h5>
-            <p class="text-secondary small" id="previa-parrafo">Acá va a aparecer el párrafo que escribas en el formulario.</p>
-            <a href="#" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más →</a>
-          </div>
+
+            <img
+                id="previa-imagen"
+                src="https://placehold.co/400x220/e6e6e6/999999?text=Imagen"
+                alt="Vista previa"
+            >
+
+            <div class="p-3">
+
+                <span
+                    class="badge-cat badge-arte"
+                    id="previa-badge"
+                >
+                    Arte
+                </span>
+
+                <p
+                    class="fecha-noticia mt-2 mb-1"
+                    id="previa-fecha"
+                >
+                    18 de julio, 2026
+                </p>
+
+                <h5 id="previa-titulo">
+                    Título de la noticia
+                </h5>
+
+                <p
+                    class="text-secondary small"
+                    id="previa-parrafo"
+                >
+                    Acá va a aparecer el párrafo que escribas en el formulario.
+                </p>
+
+                <a
+                    href="#"
+                    id="previa-link"
+                    class="fw-bold text-decoration-none"
+                    style="color: var(--azul-700);"
+                >
+                    Leer más →
+                </a>
+
+            </div>
         </div>
-      </div>
     </div>
+</div>
+
 
   </div>
 </div>
@@ -261,7 +367,7 @@ function generarNoticia() {
       <p class="fecha-noticia mt-2 mb-1">${escaparHTML(fecha)}</p>
       <h5>${escaparHTML(titulo)}</h5>
       <p class="text-secondary small">${escaparHTML(parrafo)}</p>
-      <a href="${escaparHTML(link)}" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más →</a>
+      <a href="${escaparHTML(link)}" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más</a>
     </div>
   </div>
 </div>`;
