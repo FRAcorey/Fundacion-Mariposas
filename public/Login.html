@@ -19,17 +19,40 @@
 
   <div class="field">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-4 3.2-6 7-6s7 2 7 6"/></svg>
-    <input type="text" placeholder="Usuario" required>
+    <input type="text" placeholder="Usuario" id="user">
   </div>
 
   <div class="field">
     <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-    <input type="password" placeholder="Contraseña" required>
+    <input type="password" placeholder="Contraseña" id="contra">
   </div>
 
-  <button type="submit">INICIAR SESION</button><br><br>
-  <button type="submit">INVITADO</button>
+  <button type="button" id="inicioSesion" onclick="enviar('Index.html')">INICIAR SESION</button><br><br>
+  
+  <button type="button" onclick="window.location.href='Index.html'">INVITADO</button>
+
+
+ 
+
 </form>
 
+  <script> 
+    const user = document.getElementById("user");
+    const contra = document.getElementById("contra");
+    let usuario = "seba"
+    let contraseña = "1234" 
+
+    function enviar(url){
+      alert("entro la balubi")
+      if(user.values.textContent.toUpperCase() == usuario.toUpperCase()){
+        alert("bien")
+        window.location.href= 'Index.html';
+      }else{
+        alert("contra invalida brodel")
+      }
+
+    }
+    
+    </script>
 </body>
 </html>

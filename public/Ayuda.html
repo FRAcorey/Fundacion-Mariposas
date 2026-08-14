@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Ayuda - Asociación Civil Mariposas</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .header-ayuda {
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .titulo-seccion {
+            color: #0369a1;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .tarjeta-guia {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .icono-guia {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .item-pregunta {
+            background: #ffffff;
+            border-left: 4px solid #0284c7;
+            border-radius: 0 12px 12px 0;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .item-pregunta h4 {
+            color: #0f172a;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .item-pregunta p {
+            color: #64748b;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .nav-simple {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 0;
+        }
+
+        .nav-simple a {
+            color: #64748b;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .nav-simple a:hover, .nav-simple a.active {
+            color: #0284c7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ NAVEGACIÓN SIMPLE -->
+    <nav class="nav-simple">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="Index.html" class="fw-bold fs-5 text-decoration-none" style="color: #0284c7;">
+                Asociación Mariposa
+            </a>
+            <div>
+                <a href="Index.html">Inicio</a>
+                <a href="Noticia.html">Noticias</a>
+                <a href="Ayuda.html" class="active">Ayuda</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ENCABEZADO -->
+    <header class="header-ayuda text-center">
+        <div class="container">
+            <h1 class="display-6 titulo-seccion mb-3">Centro de Ayuda</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 600px; font-size: 1.05rem;">
+                Explicaciones sencillas para guiarte en nuestro sitio web y resolver tus dudas de forma rápida.
+            </p>
+        </div>
+    </header>
+
+    <!-- GUÍA SIMPLE DE LAS SECCIONES -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="h4 titulo-seccion mb-4 text-center">¿Qué encuentras en cada área?</h2>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="tarjeta-guia">
+                        <span class="icono-guia">🏠</span>
+                        <h3 class="h6 fw-bold text-dark"><a href="Index.html">Inicio</a></h3>
+                        <p class="small text-muted mb-0">Presenta la historia de la fundación, el origen del logo de la mariposa azul y nuestros jóvenes destacados.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="tarjeta-guia">
+                        <span class="icono-guia">📰</span>
+                        <h3 class="h6 fw-bold text-dark"><a href="Noticia.html">Noticias</a></h3>
+                        <p class="small text-muted mb-0">Novedades semanales sobre los talleres de pintura, ensayos de música y actividades deportivas.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="tarjeta-guia">
+                        <span class="icono-guia">🗓️</span>
+                        <h3 class="h6 fw-bold text-dark"><a href="Actividades.html">Actividades</a></h3>
+                        <p class="small text-muted mb-0">Fechas y horarios confirmados de las próximas ferias, jornadas familiares y presentaciones del coro.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                 <a href="https://www.google.com/maps/search/?api=1&query=Gral.+Flores+577,+85000+Trinidad" target="_blank" class="text-decoration-none d-block h-100">
+            <div class="tarjeta-guia">
+                <span class="icono-guia">📍</span>
+                <h3 class="h6 fw-bold text-dark">Contacto</h3>
+                <p class="small text-muted mb-0">Dirección física (Gral. Flores 577), teléfono de llamadas directas y correo de la asociación.</p>
+            </div>
+        </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DUDAS FRECUENTES (TEXTO PLANO SIMPLIFICADO) -->
+    <section class="pb-5">
+        <div class="container" style="max-width: 800px;">
+            <h2 class="h4 titulo-seccion mb-4 text-center">Dudas frecuentes explicadas simple</h2>
+
+            <div class="item-pregunta">
+                <h4>Información básica</h4>
+                <p>La Asociación Mariposas, está enfocada principalmente a las personas con autismo para incluirlas cada día más, para ayudarlos, ya que suelen ser excluidos porque el mundo está hecho para personas neurotípicas. 
+Ayudándoles a tener una mejor educación, futuro laboral, incluyendolos más en el sistema.
+</p>
+            </div>
+
+            <div class="item-pregunta">
+                <h4>Horarios de visita</h4>
+                <p>Puedes visitarnos desde las 12 hasta las 6pm. Tal vez haya alguna ocasión en la que no estemos por algún evento en beneficio de la asociación, cualquier cosa ver en las noticias, que avisamos todos los eventos.</p>
+            </div>
+
+            <div class="item-pregunta">
+        <h4>¿Cómo saber cuándo podemos visitar la sede?</h4>
+        <p>Estamos abiertos de 12:00 a 18:00 hs. Si algún día cerramos por realizar un evento fuera de la sede, lo avisamos con anticipación en la sección de <strong>Noticias</strong>. Te recomendamos revisar esa sección antes de venir.</p>
+    </div>
+
+    <div class="item-pregunta">
+        <h4>¿Dónde ver información sobre los eventos y recaudaciones?</h4>
+        <p>Para conocer la fecha, hora y motivo de nuestras actividades o ferias de recaudación, entra a la sección <strong>Noticias</strong> o <strong>Actividades</strong> desde el menú de arriba. Allí explicamos en qué se utilizará lo recaudado en cada evento.</p>
+    </div>
+
+    <div class="item-pregunta">
+        <h4>¿Cómo navegar por la página si me pierdo?</h4>
+        <p>En la parte superior de la pantalla siempre verás un menú con las opciones: <strong>Inicio</strong>, <strong>Noticias</strong> y <strong>Ayuda</strong>. Haz clic en cualquiera de esas palabras para ir a la sección que necesites en cualquier momento.</p>
+    </div>
+
+    <div class="item-pregunta">
+        <h4>¿Cómo contactarnos o ver nuestra ubicación en el mapa?</h4>
+        <p>Haz clic en la casilla de <strong>Contacto 📍</strong> arriba en esta misma página para abrir el mapa en tu celular o computadora. Si prefieres escribirnos, en la página de <strong>Inicio</strong> encuentras nuestro formulario directo y número de teléfono.</p>
+    </div>
+
+    <!-- PIE DE PÁGINA SENCILLO -->
+    <footer class="py-4 text-center text-muted border-top bg-white fs-7">
+        <div class="container">
+            <p class="mb-0 small">© 2026 Asociación Civil Mariposas Azul — Trinidad, Uruguay.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
