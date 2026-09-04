@@ -47,7 +47,7 @@
                 Fecha
               </label>
 
-              <input type="text" class="form-control" id="campo-fecha" name="fecha" placeholder="Ej: 18 de julio, 2026"
+              <input type="text" class="form-control" id="campo-fecha" name="fecha" placeholder="Ej: 2026-05-21"
                 required>
             </div>
 
@@ -88,7 +88,7 @@
 
 
       <!-- VISTA PREVIA -->
-      <div class="col-lg-6">
+      <div class="col-lg-6" id="previa">
         <div class="panel-previa mb-3">
 
           <h2>👀 Vista previa</h2>
@@ -119,18 +119,16 @@
                 Leer más →
               </a>
 
+              <button type="button" class="btn w-100" style="background: var(--azul-700); color: white;"
+              onclick="actualizarPrevia()">
+              Actualizar vista previa
+            </button>
             </div>
           </div>
-          <button type="button" class="btn w-100 mt-3" style="background: var(--azul-700); color: white;"
-            onclick="actualizarPrevia()" id="previa">
-            Actualizar vista previa
-          </button>
-        </div>
-      </div>
-
-
     </div>
   </div>
+</div>
+</div>
 
   <script>
 
@@ -149,13 +147,17 @@
     const avisoFormato = document.getElementById('aviso-formato');
 
     inputImagen.addEventListener('change', function () {
-      const archivo = this.files[0];
+     const archivo = this.file[0];
 
-      const lector = new FileReader();
-      lector.onload = e => previaImagen.src = e.target.result;
-      lector.readAsDataURL(archivo);
+     if (archivo) {
+     
+     const lector = new FileReader();
+     lector.onload = e =>previaImagen.src = e.target.result;
+     lector.readAsDataURL(archivo);
+
+     }
     });
-
+  
     document.getElementById('campo-categoria').addEventListener('change', actualizarPreviaCategoria);
     actualizarPreviaCategoria();
 
@@ -187,40 +189,73 @@
 
     async function publicarNoticia() {
 
-    const titulo = document.getElementById("campo-titulo").value;
-    const parrafo = document.getElementById("campo-parrafo").value;
+    const titulo = document.getElementById("campo-titulo").value.trim();
+    const parrafo = document.getElementById("campo-parrafo").value.trim();
     const categoria = document.getElementById("campo-categoria").value;
     const fecha = document.getElementById("campo-fecha").value;
 
-    const respuesta = await fetch("https://rmnnjxletaweppdvipgs.supabase.co/rest/v1/noticias",{
-            method: "POST",
-            headers: {"apikey": ApiKey, "Authorization": `Bearer ${ApiKey}`, "Content-Type": "application/json", "Prefer": "return=representation" },
-            body: JSON.stringify({
-                titulo,
-                parrafo,
-                categoria,
-                fecha
-            })
-        } 
-    );
+    if (!titulo || !parrafo || !categoria || !fecha) {
+        alert("Por favor completá todos los campos");
+        return;
+    }
 
-    const resultado = await respuesta.json();
+    try {
 
-    console.log(respuesta.status);
-    console.log(resultado);
+        const respuesta = await fetch(
+            SupabaseUrl + "noticias",
+            {
+                method: "POST",
 
-    if (respuesta.ok) {
-        alert("Noticia publicada correctamente");
-    } else {
-        alert("Error al publicar");
-        console.error(resultado);
+                headers: {
+                    "apikey": ApiKey,
+                    "Authorization": `Bearer ${ApiKey}`,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=representation"
+                },
+
+                body: JSON.stringify({
+                    titulo: titulo,
+                    parrafo: parrafo,
+                    categoria: categoria,
+                    fecha: fecha
+                })
+            }
+        );
+
+        const resultado = await respuesta.json();
+
+        console.log("Status:", respuesta.status);
+        console.log("Resultado:", resultado);
+
+        if (respuesta.ok) {
+
+            alert("Noticia publicada correctamente");
+
+            // Limpiar formulario
+            document.getElementById("form-noticia");
+
+        } else {
+
+            console.error("Error de Supabase:", resultado);
+
+            alert(
+                "Error al publicar: " +
+                (resultado.message || "Error desconocido")
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error("Error de conexión:", error);
+
+        alert("Ocurrió un error al conectar con Supabase");
+
     }
 }
 
-document.getElementById('previa').addEventListener('click', actualizarPrevia);
+
 
   </script>
-
 </body>
-
 </html>

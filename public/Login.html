@@ -27,32 +27,54 @@
     <input type="password" placeholder="Contraseña" id="contra">
   </div>
 
-  <button type="button" id="inicioSesion" onclick="enviar('Index.html')">INICIAR SESION</button><br><br>
+  <button type="button" id="inicioSesion" onclick="enviar()">INICIAR SESION</button><br><br>
   
   <button type="button" onclick="window.location.href='Index.html'">INVITADO</button>
 
 
- 
-
 </form>
 
   <script> 
+
     const user = document.getElementById("user");
     const contra = document.getElementById("contra");
-    let usuario = "seba"
-    let contraseña = "1234" 
 
-    function enviar(url){
-      alert("entro la balubi")
-      if(user.values.textContent.toUpperCase() == usuario.toUpperCase()){
-        alert("bien")
-        window.location.href= 'Index.html';
-      }else{
-        alert("contra invalida brodel")
-      }
+    let usuario = "seba";
+    let contraseña = "1234";
 
+    let admin = "admin";
+    let contraseñaAdmin = "123";
+
+    function enviar() {
+
+        let nombre = user.value;
+        let clave = contra.value;
+
+        // ADMINISTRADOR
+        if (nombre.toUpperCase() == admin.toUpperCase() && clave == contraseñaAdmin) {
+
+            localStorage.setItem("rol", "admin");
+            alert("Bienvenido Administrador")
+            window.location.href = "Index.html";
+
+        // USUARIO NORMAL
+        } else if (nombre.toUpperCase() == usuario.toUpperCase() && clave == contraseña) {
+
+            localStorage.setItem("rol", "usuario");
+            alert("Bienvenido Invitado");
+            window.location.href = "Index.html";
+
+        // DATOS INCORRECTOS
+        } else {
+
+            alert("Usuario o contraseña incorrectos");
+
+        }
     }
     
-    </script>
+</script>
+
+
+  
 </body>
 </html>
