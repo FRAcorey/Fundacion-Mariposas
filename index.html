@@ -28,7 +28,7 @@
             <li class="nav-item"><a class="nav-link" href="#noticias">Noticias</a></li>
             <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
             <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-            <li class="nav-item"><a class="nav-link" href="/public/Ayuda.html">Ayuda</a></li>
+            <li class="nav-item"><a class="nav-link" href="/public/ayuda.html">Ayuda</a></li>
             <li class="nav-item"><a class="nav-link" href="public/login.html">Salir</a></li>
           </ul>
         </div>
@@ -89,7 +89,7 @@
         </div>
         <div class="d-flex flex-wrap gap-2">
           <button class="filtro-btn active">Todas</button>
-          <button class="filtro-btn">Arte</button>
+          <button class="filtro-btn ">Arte</button>
           <button class="filtro-btn">Música</button>
           <button class="filtro-btn">Deporte</button>
           <button class="filtro-btn">Eventos</button>
@@ -197,33 +197,6 @@
     </div>
   </section>
 
-  <!-- GALERÍA -->
-  <section id="galeria" class="py-5">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 style="color:var(--azul-700)">Galería de momentos</h2>
-        <p class="text-secondary">Arte, música y deporte, capturados en imágenes</p>
-      </div>
-      <div class="row g-3">
-        <div class="col-6 col-md-3">
-          <div class="galeria-img"><img src="https://placehold.co/300x200/8fc4ea/0c3b66?text=Arte"
-              alt="Momento de taller de arte"></div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="galeria-img"><img src="https://placehold.co/300x200/ffc94d/0c3b66?text=M%C3%BAsica"
-              alt="Momento de taller de música"></div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="galeria-img"><img src="https://placehold.co/300x200/ff8b6b/ffffff?text=Deporte"
-              alt="Momento de actividad deportiva"></div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="galeria-img"><img src="https://placehold.co/300x200/2a86c9/ffffff?text=Comunidad"
-              alt="Momento de actividad comunitaria"></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!--Apartado para los jovenes de la asociación-->
   <section id="jovenes" class="py-5 seccion-clara">
@@ -373,7 +346,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
 
-    const ApiURL = "https://rmnnjxletaweppdvipgAsociacióne.co/rest/v1/noticias?select=*"
+    const ApiURL = "https://rmnnjxletaweppdvipgs.supabase.co/rest/v1/noticias";
     const ApiKey = "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH";
 
     // Filtro simple de categorías (visual)
@@ -443,15 +416,12 @@
       }
     }
 
-    <a href="#" id="borrar">Borrar</a>
+
+/*    <a href="#" id="borrar">Borrar</a>
     let rol = localStorage.getItem("rol");
     if (rol !== "admin") {
         document.getElementById("borrar").style.display = "none";
     }
-
-
-    cargarNoticias();
-
     document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".card-noticia a").forEach(boton => {
@@ -475,7 +445,9 @@
 
     });
 
-});
+}); */
+
+    cargarNoticias();
   </script>
 </body>
 
