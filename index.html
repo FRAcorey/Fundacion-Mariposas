@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg sticky-top py-3">
     <div class="container">
@@ -99,7 +98,8 @@
       <div class="text-center mb-4">
         <a href="/public/noticia.html">
           <button id="btnCrearNoticia" class="btn btn-outline-primary px-4"
-            style="color:var(--azul-700); border-color:var(--azul-700)">Crear noticia</button>
+            style="color:var(--azul-700); border-color:var(--azul-700)" 
+            style="display: none;" >Crear noticia</button>
         </a>
       </div>
       <div class="row g-4">
@@ -107,11 +107,10 @@
           <div class="card-noticia">
             <img src="https://placehold.co/400x220/ff8b6b/ffffff?text=Taller+de+pintura" alt="Taller de pintura mural">
             <div class="p-3">
-              <span class="badge-cat badge-arte">Arte</span>
-              <p class="fecha-noticia mt-2 mb-1">18 de julio, 2026</p>
-              <h5>Terminamos el mural colectivo del patio</h5>
-              <p class="text-secondary small">Durante seis semanas, el grupo de talleres de arte pintó un mural
-                inspirado en el mar y sus colores.</p>
+              <span class="badge-cat badge-arte"></span>
+              <p class="fecha-noticia mt-2 mb-1"></p>
+              <h5></h5>
+              <p class="text-secondary small"></p>
               <a href="#" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más →</a>
             </div>
           </div>
@@ -121,11 +120,10 @@
           <div class="card-noticia">
             <img src="https://placehold.co/400x220/6a3fc9/ffffff?text=Coro+Mariposa" alt="Ensayo del coro">
             <div class="p-3">
-              <span class="badge-cat badge-musica">Música</span>
-              <p class="fecha-noticia mt-2 mb-1">10 de julio, 2026</p>
-              <h5>El coro Mariposa se presenta este agosto</h5>
-              <p class="text-secondary small">Después de meses de ensayo, el coro se prepara para su primera
-                presentación abierta a las familias.</p>
+              <span class="badge-cat badge-musica"></span>
+              <p class="fecha-noticia mt-2 mb-1"></p>
+              <h5></h5>
+              <p class="text-secondary small"></p>
               <a href="#" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más →</a>
             </div>
           </div>
@@ -135,11 +133,10 @@
           <div class="card-noticia">
             <img src="https://placehold.co/400x220/1e8a4c/ffffff?text=Jornada+deportiva" alt="Jornada deportiva">
             <div class="p-3">
-              <span class="badge-cat badge-deporte">Deporte</span>
-              <p class="fecha-noticia mt-2 mb-1">2 de julio, 2026</p>
-              <h5>Jornada de natación adaptada, un éxito</h5>
-              <p class="text-secondary small">Más de 20 chicos participaron de la jornada de natación, con
-                acompañamiento personalizado en el agua.</p>
+              <span class="badge-cat badge-deporte"></span>
+              <p class="fecha-noticia mt-2 mb-1"></p>
+              <h5></h5>
+              <p class="text-secondary small"></p>
               <a href="#" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más →</a>
             </div>
           </div>
@@ -150,11 +147,10 @@
             <img src="https://placehold.co/400x220/12578f/ffffff?text=Feria+solidaria"
               alt="Feria solidaria de la fundación">
             <div class="p-3">
-              <span class="badge-cat badge-evento">Evento</span>
-              <p class="fecha-noticia mt-2 mb-1">25 de junio, 2026</p>
-              <h5>Feria solidaria: gracias por acompañarnos</h5>
-              <p class="text-secondary small">Recaudamos fondos para renovar el espacio sensorial gracias a la comunidad
-                que nos visitó.</p>
+              <span class="badge-cat badge-evento"></span>
+              <p class="fecha-noticia mt-2 mb-1"></p>
+              <h5></h5>
+              <p class="text-secondary small"></p>
               <a href="#" class="fw-bold text-decoration-none" style="color:var(--azul-700)">Leer más →</a>
             </div>
           </div>
@@ -191,7 +187,7 @@
       </div>
 
       <div class="text-center mt-5">
-        <a href="#" class="btn btn-outline-primary px-4" style="color:var(--azul-700); border-color:var(--azul-700)">Ver
+        <a href="public/verNoticias.html" class="btn btn-outline-primary px-4" style="color:var(--azul-700); border-color:var(--azul-700)">Ver
           todas las noticias</a>
       </div>
     </div>
@@ -416,7 +412,39 @@
       }
     }
 
+    async function comprobarAdmin() {
 
+    const boton = document.getElementById("btnCrearNoticia");
+
+    // Obtener usuario autenticado
+    const {
+        data: { user },
+        error: errorUsuario
+    } = await supabase.auth.getUser();
+
+    if (errorUsuario || !user) {
+        console.log("Usuario no autenticado");
+        // El botón continúa oculto
+        return;
+    }
+
+    // Buscar al usuario en la tabla admin
+    const { data, error } = await supabase
+        .from("admin")
+        .select("id")
+        .eq("id", user.id)
+        .maybeSingle();
+
+    if (error) {
+        console.error("Error comprobando administrador:", error);
+        return;
+    }
+
+    // Si existe en la tabla admin, mostrar botón
+    if (data) {
+        boton.style.display = "block";
+    }
+}
 /*    <a href="#" id="borrar">Borrar</a>
     let rol = localStorage.getItem("rol");
     if (rol !== "admin") {
@@ -447,6 +475,9 @@
 
 }); */
 
+document.addEventListener("DOMContentLoaded", () => {
+    comprobarAdmin();
+});
     cargarNoticias();
   </script>
 </body>

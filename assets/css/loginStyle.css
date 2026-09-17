@@ -183,3 +183,26 @@ img
   height: 100%;
   border-radius: 50%;
 }
+/* Estilos para computadora */
+.contenedor {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+}
+
+.tarjeta {
+  width: 300px;
+  padding: 20px;
+}
+
+/* Estilos para celulares */
+@media (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .tarjeta {
+    width: 100%;
+  }
+}
