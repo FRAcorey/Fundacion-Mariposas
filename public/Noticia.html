@@ -30,19 +30,6 @@
           <form id="form-noticia">
 
             <div class="mb-3">
-              <label for="campo-categoria" class="form-label fw-semibold">
-                Categoría
-              </label>
-
-              <select class="form-select" id="campo-categoria" name="categoria">
-                <option value="arte">Arte</option>
-                <option value="musica">Música</option>
-                <option value="deporte">Deporte</option>
-                <option value="evento">Evento</option>
-              </select>
-            </div>
-
-            <div class="mb-3">
               <label for="campo-fecha" class="form-label fw-semibold">
                 Fecha
               </label>
@@ -58,6 +45,15 @@
 
               <input type="text" class="form-control" id="campo-titulo" name="titulo"
                 placeholder="Ej: Terminamos el mural colectivo del patio" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="campo-subtitulo" class="form-label fw-semibold">
+                Subtítulo
+              </label>
+
+              <input type="text" class="form-control" id="campo-subtitulo" name="subtitulo"
+                placeholder="Ej: Un nuevo proyecto para el patio" required>
             </div>
 
             <div class="mb-3">
@@ -99,16 +95,16 @@
 
             <div class="p-3">
 
-              <span class="badge-cat badge-arte" id="previa-badge">
-                Arte
-              </span>
-
               <p class="fecha-noticia mt-2 mb-1" id="previa-fecha">
                 18 de julio, 2026
               </p>
 
-              <h5 id="previa-titulo">
+              <h3 id="previa-titulo">
                 Título de la noticia
+              </h3>
+
+              <h5 id="previa-subtitulo">
+                Subtítulo de la noticia
               </h5>
 
               <p class="text-secondary small" id="previa-parrafo">
@@ -120,161 +116,525 @@
               </a>
 
               <button type="button" class="btn w-100" style="background: var(--azul-700); color: white;"
-              onclick="actualizarPrevia()">
-              Actualizar vista previa
-            </button>py-4">
+                onclick="actualizarPrevia()">
+                Actualizar vista previa
+              </button>
 
-        <div class="container text-center">
+              <div class="container text-center">
+                <p class="mb-1">
+                  © 2026 - Noticias
+                </p>
+              </div>
 
-            <p class="mb-1">
-                © 2026 - Noticias
-            </p>
-
-            <a href="../Index.html">
-                Volver al inicio
-            </a>
-
-        </div>
-
-    </footer>
-
-
-</body>
 
             </div>
           </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // ==========================================
+    // CONFIGURACIÓN DE SUPABASE
+    // ==========================================
 
     const ApiKey = "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH";
-    const SupabaseUrl = "https://rmnnjxletaweppdvipgs.supabase.co/rest/v1/";
 
-    const categorias = {
-      arte: { badge: 'badge-arte', etiqueta: 'Arte' },
-      musica: { badge: 'badge-musica', etiqueta: 'Música' },
-      deporte: { badge: 'badge-deporte', etiqueta: 'Deporte' },
-      evento: { badge: 'badge-evento', etiqueta: 'Evento' }
-    };
+    const SupabaseUrl =
+      "https://rmnnjxletaweppdvipgs.supabase.co/rest/v1/";
 
-    const inputImagen = document.getElementById('campo-imagen');
-    const previaImagen = document.getElementById('previa-imagen');
-    const avisoFormato = document.getElementById('aviso-formato');
+    const SupabaseRest =
+      SupabaseUrl + "/rest/v1/";
+
+    const SupabaseStorage =
+      SupabaseUrl + "/storage/v1/object/";
+
+
+   
+    // ==========================================
+    // ELEMENTOS DEL HTML
+    // ==========================================
+
+    const inputImagen =
+      document.getElementById('campo-imagen');
+
+    const previaImagen =
+      document.getElementById('previa-imagen');
+
+
+    // ==========================================
+    // VISTA PREVIA DE LA IMAGEN
+    // ==========================================
 
     inputImagen.addEventListener('change', function () {
-     const archivo = this.file[0];
 
-     if (archivo) {
-     
-     const lector = new FileReader();
-     lector.onload = e =>previaImagen.src = e.target.result;
-     lector.readAsDataURL(archivo);
+      const archivo = this.files[0];
 
-     }
+      if (!archivo) {
+        return;
+      }
+
+
+      // Verificar que sea WEBP
+
+      if (
+        archivo.type !== "image/webp" &&
+        archivo.type !== "image/jpeg" &&
+        archivo.type !== "image/png" &&
+        archivo.type !== "image/jpg" &&
+        !archivo.name.toLowerCase().endsWith(".webp") &&
+        !archivo.name.toLowerCase().endsWith(".jpeg") &&
+        !archivo.name.toLowerCase().endsWith(".jpg") &&
+        !archivo.name.toLowerCase().endsWith(".png")
+      ) {
+
+        alert("Solo se permiten imágenes .webp/.jpeg/.jpg/.png");
+        inputImagen.value = "";
+        return;
+      }
+
+
+      // Mostrar imagen en la vista previa
+
+      const lector = new FileReader();
+
+      lector.onload = function (e) {
+
+        previaImagen.src = e.target.result;
+
+      };
+
+      lector.readAsDataURL(archivo);
+
     });
-  
-    document.getElementById('campo-categoria').addEventListener('change', actualizarPreviaCategoria);
+
+
+    
     actualizarPreviaCategoria();
 
+
     function actualizarPreviaCategoria() {
-      const cat = categorias[document.getElementById('campo-categoria').value];
-      const badge = document.getElementById('previa-badge');
-      badge.className = 'badge-cat ' + cat.badge;
-      badge.textContent = cat.etiqueta;
+
+      const categoriaSeleccionada =
+        document.getElementById('campo-categoria').value;
+
+      const cat =
+        categorias[categoriaSeleccionada];
+
+      const badge =
+        document.getElementById('previa-badge');
+
+
+      badge.className =
+        'badge-cat ' + cat.badge;
+
+      badge.textContent =
+        cat.etiqueta;
+
     }
+
+
+    // ==========================================
+    // ESCAPAR HTML
+    // ==========================================
 
     function escaparHTML(texto) {
-      const div = document.createElement('div');
+
+      const div =
+        document.createElement('div');
+
       div.textContent = texto;
+
       return div.innerHTML;
+
     }
+
+
+    // ==========================================
+    // ACTUALIZAR VISTA PREVIA
+    // ==========================================
 
     function actualizarPrevia() {
-      const catKey = document.getElementById('campo-categoria').value;
-      const cat = categorias[catKey];
-      const fecha = document.getElementById('campo-fecha').value.trim() || 'Fecha pendiente';
-      const titulo = document.getElementById('campo-titulo').value.trim() || 'Título de la noticia';
-      const parrafo = document.getElementById('campo-parrafo').value.trim() || 'Escribí el contenido de la noticia.';
 
-      // Actualiza vista previa
-      document.getElementById('previa-fecha').textContent = fecha;
-      document.getElementById('previa-titulo').textContent = titulo;
-      document.getElementById('previa-parrafo').textContent = parrafo;
+      const catKey =
+        document.getElementById(
+          'campo-categoria'
+        ).value;
+
+      const cat =
+        categorias[catKey];
+
+
+      const fecha =
+        document.getElementById(
+          'campo-fecha'
+        ).value.trim()
+        || 'Fecha pendiente';
+
+
+      const titulo =
+        document.getElementById(
+          'campo-titulo'
+        ).value.trim()
+        || 'Título de la noticia';
+
+
+      const parrafo =
+        document.getElementById(
+          'campo-parrafo'
+        ).value.trim()
+        || 'Escribí el contenido de la noticia.';
+
+
+      document.getElementById(
+        'previa-fecha'
+      ).textContent = fecha;
+
+
+      document.getElementById(
+        'previa-titulo'
+      ).textContent = titulo;
+
+
+      document.getElementById(
+        'previa-parrafo'
+      ).textContent = parrafo;
+
     }
+
+
+    // ==========================================
+    // PUBLICAR NOTICIA
+    // ==========================================
 
     async function publicarNoticia() {
 
-    const titulo = document.getElementById("campo-titulo").value.trim();
-    const parrafo = document.getElementById("campo-parrafo").value.trim();
-    const categoria = document.getElementById("campo-categoria").value;
-    const fecha = document.getElementById("campo-fecha").value;
+      const titulo =
+        document.getElementById(
+          "campo-titulo"
+        ).value.trim();
 
-    if (!titulo || !parrafo || !categoria || !fecha) {
-        alert("Por favor completá todos los campos");
-        return;
-    }
 
-    try {
+      const parrafo =
+        document.getElementById(
+          "campo-parrafo"
+        ).value.trim();
 
-        const respuesta = await fetch(
-            SupabaseUrl + "noticias",
-            {
-                method: "POST",
 
-                headers: {
-                    "apikey": ApiKey,
-                    "Authorization": `Bearer ${ApiKey}`,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=representation"
-                },
+      const categoria =
+        document.getElementById(
+          "campo-categoria"
+        ).value;
 
-                body: JSON.stringify({
-                    titulo: titulo,
-                    parrafo: parrafo,
-                    categoria: categoria,
-                    fecha: fecha,
-                    imagen: null
-                })
-            }
+
+      const fecha =
+        document.getElementById(
+          "campo-fecha"
+        ).value.trim();
+
+
+      const archivo =
+        document.getElementById(
+          "campo-imagen"
+        ).files[0];
+
+
+      // ==========================================
+      // VALIDAR CAMPOS
+      // ==========================================
+
+      if (
+        !titulo ||
+        !parrafo ||
+        !categoria ||
+        !fecha
+      ) {
+
+        alert(
+          "Por favor completá todos los campos."
         );
 
-        const resultado = await respuesta.json();
+        return;
 
-        console.log("Status:", respuesta.status);
-        console.log("Resultado:", resultado);
+      }
 
-        if (respuesta.ok) {
 
-            alert("Noticia publicada correctamente");
+      // ==========================================
+      // VALIDAR IMAGEN
+      // ==========================================
 
-            // Limpiar formulario
-            document.getElementById("form-noticia");
+      if (!archivo) {
 
-        } else {
+        alert(
+          "Seleccioná una imagen .webp."
+        );
 
-            console.error("Error de Supabase:", resultado);
+        return;
 
-            alert(
-                "Error al publicar: " +
-                (resultado.message || "Error desconocido")
-            );
+      }
+
+
+      if (
+        archivo.type !== "image/webp" &&
+        !archivo.name.toLowerCase().endsWith(".webp")
+      ) {
+
+        alert(
+          "La imagen debe estar en formato .webp."
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        // ========================================
+        // PASO 1
+        // CREAR NOMBRE ÚNICO
+        // ========================================
+
+        const nombreOriginal =
+          archivo.name
+            .replace(/\s+/g, "_")
+            .replace(/[^a-zA-Z0-9._-]/g, "");
+
+
+        const nombreArchivo =
+          Date.now() + "_" + nombreOriginal;
+
+
+        console.log(
+          "Archivo:",
+          nombreArchivo
+        );
+
+
+        // ========================================
+        // PASO 2
+        // SUBIR IMAGEN A STORAGE
+        // ========================================
+
+        console.log(
+          "Subiendo imagen a Storage..."
+        );
+
+
+        const respuestaImagen =
+          await fetch(
+
+            SupabaseStorage +
+            "noticias/" +
+            nombreArchivo,
+
+            {
+
+              method: "POST",
+
+              headers: {
+
+                "apikey": ApiKey,
+
+                "Authorization":
+                  `Bearer ${ApiKey}`,
+
+                "Content-Type":
+                  archivo.type
+
+              },
+
+              body: archivo
+
+            }
+
+          );
+
+
+        // ========================================
+        // COMPROBAR SUBIDA
+        // ========================================
+
+        if (!respuestaImagen.ok) {
+
+          const errorImagen =
+            await respuestaImagen.text();
+
+          console.error(
+            "Error al subir imagen:",
+            errorImagen
+          );
+
+          throw new Error(
+            "No se pudo subir la imagen."
+          );
 
         }
 
-    } catch (error) {
 
-        console.error("Error de conexión:", error);
+        console.log(
+          "Imagen subida correctamente."
+        );
 
-        alert("Ocurrió un error al conectar con Supabase");
+
+        // ========================================
+        // PASO 3
+        // CREAR URL PÚBLICA
+        // ========================================
+
+        const imagenURL =
+          SupabaseUrl +
+          "/storage/v1/object/public/noticias/" +
+          nombreArchivo;
+
+
+        console.log(
+          "URL de imagen:",
+          imagenURL
+        );
+
+
+        // ========================================
+        // PASO 4
+        // GUARDAR NOTICIA
+        // ========================================
+
+        console.log(
+          "Guardando noticia..."
+        );
+
+
+        const respuestaNoticia =
+          await fetch(
+
+            SupabaseRest + "noticias",
+
+            {
+
+              method: "POST",
+
+              headers: {
+
+                "apikey": ApiKey,
+
+                "Authorization":
+                  `Bearer ${ApiKey}`,
+
+                "Content-Type":
+                  "application/json",
+
+                "Prefer":
+                  "return=representation"
+
+              },
+
+
+              body: JSON.stringify({
+
+                titulo: titulo,
+
+                parrafo: parrafo,
+
+                categoria: categoria,
+
+                fecha: fecha,
+
+                imagen: imagenURL
+
+              })
+
+            }
+
+          );
+
+
+        // ========================================
+        // LEER RESPUESTA
+        // ========================================
+
+        const resultado =
+          await respuestaNoticia.json();
+
+
+        console.log(
+          "Status:",
+          respuestaNoticia.status
+        );
+
+        console.log(
+          "Resultado:",
+          resultado
+        );
+
+
+        // ========================================
+        // COMPROBAR NOTICIA
+        // ========================================
+
+        if (!respuestaNoticia.ok) {
+
+          console.error(
+            "Error de Supabase:",
+            resultado
+          );
+
+          throw new Error(
+            resultado.message ||
+            "No se pudo guardar la noticia."
+          );
+
+        }
+
+
+        // ========================================
+        // ÉXITO
+        // ========================================
+
+        alert(
+          "¡Noticia publicada correctamente!"
+        );
+
+
+        // Limpiar formulario
+
+        document
+          .getElementById("form-noticia")
+          .reset();
+
+
+        // Restaurar imagen de vista previa
+
+        previaImagen.src =
+          "https://placehold.co/400x220/e6e6e6/999999?text=Imagen";
+
+
+        actualizarPreviaCategoria();
+
+
+        actualizarPrevia();
+
+
+      } catch (error) {
+
+        console.error(
+          "Error:",
+          error
+        );
+
+
+        alert(
+          "Ocurrió un error: " +
+          error.message
+        );
+
+      }
 
     }
-}
-
-
 
   </script>
 </body>
+
 </html>

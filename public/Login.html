@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form class="card" onsubmit="return false;">
+<form class="card" onsubmit="enviar(); return false;">
   <div class="avatar">
     <svg viewBox="0 0 24 24">
       <path d="M4 8h3l2-2h6l2 2h3v11H4z"/>
@@ -27,7 +27,7 @@
     <input type="password" placeholder="Contraseña" id="contra">
   </div>
 
-  <button type="button" id="inicioSesion" onclick="enviar()">INICIAR SESION</button><br><br>
+  <button type="submit" id="inicioSesion">INICIAR SESION</button><br><br>
   
   <button type="button" onclick="window.location.href='/index.html'">INVITADO</button>
 
@@ -35,11 +35,13 @@
 </form>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    /*const supabase = window.supabase.createClient(
-    "https://rmnnjxletaweppdvipgs.supabase.co",
-    "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH"
-    );*/
+  <script> const ApiKey = "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH"; </script>
+ 
+<script>
+   //const supabase = window.supabase.createClient(
+    //"https://rmnnjxletaweppdvipgs.supabase.co",
+    //"sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH"
+//);
 
 
     async function enviar() {
@@ -60,9 +62,9 @@
             
             localStorage.setItem("rol", "usuario");
             alert("Bienvenido Invitado");
-            window.location.href = "index.html";
+            window.location.href = "/index.html";
 
-        // DATOS INCORRECTOS
+        
     }
     
 </script>
