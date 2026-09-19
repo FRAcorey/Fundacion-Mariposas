@@ -153,7 +153,7 @@
       SupabaseUrl + "/storage/v1/object/";
 
 
-   
+
     // ==========================================
     // ELEMENTOS DEL HTML
     // ==========================================
@@ -212,7 +212,7 @@
     });
 
 
-    
+
     actualizarPreviaCategoria();
 
 
@@ -243,9 +243,7 @@
 
     function escaparHTML(texto) {
 
-      const div =
-        document.createElement('div');
-
+      const div = document.createElement('div');
       div.textContent = texto;
 
       return div.innerHTML;
@@ -259,52 +257,23 @@
 
     function actualizarPrevia() {
 
-      const catKey =
-        document.getElementById(
-          'campo-categoria'
-        ).value;
+      const fecha = document.getElementById('campo-fecha').value.trim() || 'Fecha pendiente';
 
-      const cat =
-        categorias[catKey];
+      const titulo = document.getElementById('campo-titulo').value.trim() || 'Título de la noticia';
 
+      const subtitulo = document.getElementById('campo-subtitulo').value.trim() || 'Subtítulo de la noticia';
 
-      const fecha =
-        document.getElementById(
-          'campo-fecha'
-        ).value.trim()
-        || 'Fecha pendiente';
+      const parrafo =document.getElementById('campo-parrafo').value.trim() || 'Escribí el contenido de la noticia.';
 
 
-      const titulo =
-        document.getElementById(
-          'campo-titulo'
-        ).value.trim()
-        || 'Título de la noticia';
+      document.getElementById('previa-fecha').textContent = fecha;
 
+      document.getElementById('previa-titulo').textContent = titulo;
 
-      const parrafo =
-        document.getElementById(
-          'campo-parrafo'
-        ).value.trim()
-        || 'Escribí el contenido de la noticia.';
+      document.getElementById('previa-subtitulo').textContent = subtitulo;
 
-
-      document.getElementById(
-        'previa-fecha'
-      ).textContent = fecha;
-
-
-      document.getElementById(
-        'previa-titulo'
-      ).textContent = titulo;
-
-
-      document.getElementById(
-        'previa-parrafo'
-      ).textContent = parrafo;
-
+      document.getElementById('previa-parrafo').textContent = parrafo;
     }
-
 
     // ==========================================
     // PUBLICAR NOTICIA
@@ -312,34 +281,15 @@
 
     async function publicarNoticia() {
 
-      const titulo =
-        document.getElementById(
-          "campo-titulo"
-        ).value.trim();
+      const titulo = document.getElementById("campo-titulo").value.trim();
 
+      const parrafo = document.getElementById("campo-parrafo").value.trim();
 
-      const parrafo =
-        document.getElementById(
-          "campo-parrafo"
-        ).value.trim();
+      const subtitulo = document.getElementById("campo-subtitulo").value.trim();
 
+      const fecha = document.getElementById("campo-fecha").value.trim();
 
-      const categoria =
-        document.getElementById(
-          "campo-categoria"
-        ).value;
-
-
-      const fecha =
-        document.getElementById(
-          "campo-fecha"
-        ).value.trim();
-
-
-      const archivo =
-        document.getElementById(
-          "campo-imagen"
-        ).files[0];
+      const archivo = document.getElementById("campo-imagen").files[0];
 
 
       // ==========================================
@@ -349,7 +299,7 @@
       if (
         !titulo ||
         !parrafo ||
-        !categoria ||
+        !subtitulo ||
         !fecha
       ) {
 
@@ -367,23 +317,26 @@
       // ==========================================
 
       if (!archivo) {
-
         alert(
-          "Seleccioná una imagen .webp."
+          "Seleccioná una imagen .webp/.jpeg/.jpg/.png"
         );
-
         return;
-
       }
 
 
       if (
         archivo.type !== "image/webp" &&
-        !archivo.name.toLowerCase().endsWith(".webp")
+        archivo.type !== "image/jpeg" &&
+        archivo.type !== "image/jpg" &&
+        archivo.type !== "image/png" &&
+        !archivo.name.toLowerCase().endsWith(".webp") &&
+        !archivo.name.toLowerCase().endsWith(".jpeg") &&
+        !archivo.name.toLowerCase().endsWith(".jpg") &&
+        !archivo.name.toLowerCase().endsWith(".png")
       ) {
 
         alert(
-          "La imagen debe estar en formato .webp."
+          "La imagen debe estar en formato .webp/.jpeg/.jpg/.png."
         );
 
         return;
@@ -463,22 +416,14 @@
           const errorImagen =
             await respuestaImagen.text();
 
-          console.error(
-            "Error al subir imagen:",
-            errorImagen
-          );
+          console.error("Error al subir imagen:", errorImagen);
 
-          throw new Error(
-            "No se pudo subir la imagen."
-          );
+          throw new Error("No se pudo subir la imagen.");
 
         }
 
 
-        console.log(
-          "Imagen subida correctamente."
-        );
-
+        console.log("Imagen subida correctamente.");
 
         // ========================================
         // PASO 3
@@ -496,15 +441,12 @@
           imagenURL
         );
 
-
         // ========================================
         // PASO 4
         // GUARDAR NOTICIA
         // ========================================
 
-        console.log(
-          "Guardando noticia..."
-        );
+        console.log( "Guardando noticia...");
 
 
         const respuestaNoticia =
@@ -600,36 +542,20 @@
 
         // Limpiar formulario
 
-        document
-          .getElementById("form-noticia")
-          .reset();
-
+        document.getElementById("form-noticia").reset();
 
         // Restaurar imagen de vista previa
 
         previaImagen.src =
           "https://placehold.co/400x220/e6e6e6/999999?text=Imagen";
 
-
-        actualizarPreviaCategoria();
-
-
         actualizarPrevia();
 
 
       } catch (error) {
+        console.error("Error:",error );
 
-        console.error(
-          "Error:",
-          error
-        );
-
-
-        alert(
-          "Ocurrió un error: " +
-          error.message
-        );
-
+        alert("Ocurrió un error: " + error.message );
       }
 
     }

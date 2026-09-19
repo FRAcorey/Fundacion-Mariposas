@@ -38,31 +38,33 @@
   <script> const ApiKey = "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH"; </script>
  
 <script>
-   //const supabase = window.supabase.createClient(
-    //"https://rmnnjxletaweppdvipgs.supabase.co",
-    //"sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH"
-//);
+   const supabaseClient = window.supabase.createClient(
+    "https://rmnnjxletaweppdvipgs.supabase.co",
+    "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH"
+);
 
 
     async function enviar() {
-      alert("enviar")
+      alert("hola")
       const usuario = document.getElementById("user").value;
       const password = document.getElementById("contra").value;
       alert("bien")
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from("admin")
             .select("*")
             .eq("nombre", usuario)
             .eq("contrasenia", password)
-            .single();
+            .maybeSingle();
             if (error || !data) {
               alert("tonoto");
             return;
         }
             
             localStorage.setItem("rol", "usuario");
+
             alert("Bienvenido Invitado");
-            window.location.href = "/index.html";
+
+            window.location.href = "index.html";
 
         
     }
