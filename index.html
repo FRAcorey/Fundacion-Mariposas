@@ -334,19 +334,12 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
 
     const ApiURL = "https://rmnnjxletaweppdvipgs.supabase.co/rest/v1/noticias";
     const ApiKey = "sb_publishable_P7FSsXDyYBMEvZzkjVm7nA_E0vo-qNH";
-
-    // Filtro simple de categorías (visual)
-    document.querySelectorAll('.filtro-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
 
     async function cargarNoticias() {
 
@@ -372,19 +365,26 @@
         contenedorNoticias.innerHTML = "";
 
         data.forEach(noticia => {
+
+              console.log("Noticia:", noticia.titulo);
+              console.log("URL imagen:", noticia.imagen);
+
           const card = document.createElement('div');
           card.className = 'col-md-6 col-lg-4';
           card.innerHTML = `
             <div class="card-noticia">
-                <img src="${noticia.imagen}" alt="${noticia.titulo}">
+                <img 
+                  src="${noticia.imagen}" 
+                  alt="${noticia.titulo}"
+                onerror="console.error('No se pudo cargar:', this.src)"
+                >
                 <div class="p-3">
-                    <span class="badge-cat ${noticia.categoria}">
-                        ${noticia.categoria}
                     </span>
                     <p class="fecha-noticia mt-2 mb-1">
                         ${new Date(noticia.fecha).toLocaleDateString()}
                     </p>
                     <h5>${noticia.titulo}</h5>
+                    <h3>${noticia.subtitulo}</h3>
                     <p class="text-secondary small">
                         ${noticia.parrafo}
                     </p>
@@ -473,6 +473,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     comprobarAdmin();
 });
+
     cargarNoticias();
   </script>
 </body>
