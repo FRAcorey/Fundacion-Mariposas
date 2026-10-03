@@ -35,11 +35,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script type="module">
-  const API = "http://localhost:3000";
 
   let config;
   try {
-    config = await (await fetch(`${API}/api/config`)).json();
+    config = await (await fetch("/api/config")).json();
   } catch (e) {
     alert("Error al cargar la configuración. Asegúrate de que el servidor esté en funcionamiento.");
     throw e;
