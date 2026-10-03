@@ -2,6 +2,7 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "api", "config", ".env") });
 const express = require("express");
 const cors = require("cors");
+const paginas = ["login", "noticia", "noticias", "perfil", "registro"];
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,11 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, "/")));
+
+app.get("/:pagina.html", (req, res, next) => {
+  if (!paginas.includes(req.params.pagina)) return next();
+  res.sendFile(path.join(__dirname, `${req.params.pagina}.html`));
+});
 
 app.get("/index", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
