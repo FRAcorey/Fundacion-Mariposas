@@ -171,12 +171,11 @@
       // ==========================================
       // CONFIGURACIÓN DEL SERVIDOR
       // ==========================================
-      const API = "http://localhost:3000";
       const contenedor = document.querySelector("#noticias .row.g-4");
 
       let config;
         try {
-          config = await (await fetch(`${API}/api/config`)).json();
+          config = await (await fetch("/api/config")).json();
         } catch (e) {
           contenedor.innerHTML = '<p class="text-danger text-center">No se pudo conectar con el servidor.</p>';
         throw e;

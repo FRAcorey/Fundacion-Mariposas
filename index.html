@@ -332,12 +332,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module">
-  const API = "http://localhost:3000";
+    
   const contenedor = document.querySelector("#noticias .row.g-4");
 
   let config;
   try {
-    config = await (await fetch(`${API}/api/config`)).json();
+    config = await (await fetch("/api/config")).json();
   } catch (e) {
     contenedor.innerHTML = '<p class="text-danger text-center">No se pudo conectar con el servidor.</p>';
     throw e;
