@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "login.html"));
 });
 
+app.use(express.static(path.join(__dirname, "/")));
+
 app.get("/index", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
