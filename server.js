@@ -16,7 +16,7 @@ console.log("ANON cargada:", !!process.env.supabase_ANON_KEY);
 
 
 app.get("/", (req, res) => {
-  res.send("Servidor funcionando correctamente");
+  res.sendFile(path.join(__dirname, "public", "login.html"));
 });
 
 app.get("/api/config", (req, res) => {
