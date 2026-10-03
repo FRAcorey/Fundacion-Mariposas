@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "login.html"));
 });
 
+app.get("/index", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
 if (require.main === module) {
   app.listen(3000, () => console.log("Servidor en http://localhost:3000"));
 }
